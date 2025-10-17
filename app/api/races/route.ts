@@ -16,7 +16,7 @@ export async function GET() {
 
     const csvText = await response.text();
 
-    return new Promise((resolve) => {
+    return new Promise<NextResponse>((resolve) => {
       Papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
@@ -31,7 +31,7 @@ export async function GET() {
 
           resolve(NextResponse.json(races));
         },
-        error: (error) => {
+        error: (error: Error) => {
           console.error('CSV parsing error:', error);
           resolve(
             NextResponse.json(
