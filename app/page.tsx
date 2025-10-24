@@ -92,16 +92,16 @@ export default function Home() {
             {/* Título */}
             <h1 className="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-2xl">
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-gradient bg-clip-text text-transparent">
-                Corridas de Rua
+                SportEx
               </span>
             </h1>
             
             {/* Subtítulo */}
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-4 drop-shadow-lg font-medium">
-              Encontre as melhores corridas de rua do Brasil
+              Sua plataforma definitiva para corridas de rua
             </p>
             <p className="text-lg text-white/70 max-w-2xl mx-auto drop-shadow-lg">
-              Detectamos sua localização automaticamente e filtramos por estado, cidade, nome, data ou distância!
+              🏃‍♂️ Descubra corridas incríveis na sua região! Detectamos onde você está e mostramos os melhores eventos próximos a você. Filtre por distância, data, cidade e encontre sua próxima conquista!
             </p>
 
             {/* Stats Badge */}
@@ -264,7 +264,7 @@ export default function Home() {
 
             {/* Copyright */}
             <p className="text-white/70 mb-2">
-              © {new Date().getFullYear()} Corridas de Rua. Todos os direitos reservados.
+              © {new Date().getFullYear()} SportEx. Todos os direitos reservados.
             </p>
             <p className="text-white/50 text-sm">
               Desenvolvido com ❤️ para corredores apaixonados

@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Corridas de Rua',
-  description: 'Encontre as melhores corridas de rua',
+  title: 'SportEx - Sua plataforma definitiva para corridas de rua',
+  description: '🏃‍♂️ Descubra corridas incríveis na sua região! Detectamos onde você está e mostramos os melhores eventos próximos a você. Encontre sua próxima conquista!',
 };
 
 export default function RootLayout({
