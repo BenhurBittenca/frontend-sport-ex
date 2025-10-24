@@ -27,6 +27,7 @@ export async function GET() {
             nomeDaCorrida: row['NOME DA CORRIDA'] || row['nomeDaCorrida'] || '',
             distancia: row['DISTANCIA'] || row['distancia'] || '',
             link: row['LINK'] || row['link'] || '',
+            estado: row['SIGLA'] || row['sigla'] || row['ESTADO'] || row['estado'] || '',
           }));
 
           resolve(NextResponse.json(races));

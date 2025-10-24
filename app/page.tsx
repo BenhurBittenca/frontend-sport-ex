@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import useSWR from 'swr';
 import RaceCard from '@/components/RaceCard';
 import SearchBar, { FilterValues } from '@/components/SearchBar';
+import StateTabs from '@/components/StateTabs';
 import BackgroundSlider from '@/components/BackgroundSlider';
+import { useLocation } from '@/hooks/useLocation';
 import { Race } from '@/types/race';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -15,9 +17,20 @@ export default function Home() {
     nome: '',
     data: '',
     distancia: '',
+    estado: '',
   });
   
+  const [selectedState, setSelectedState] = useState<string | null>(null);
   const { data: races, error, isLoading } = useSWR<Race[]>('/api/races', fetcher);
+  const locationData = useLocation();
+
+  // Auto-selecionar estado do usuário quando disponível
+  useEffect(() => {
+    if (locationData.estado && !selectedState && !filters.estado) {
+      setSelectedState(locationData.estado);
+      setFilters(prev => ({ ...prev, estado: locationData.estado || '' }));
+    }
+  }, [locationData.estado, selectedState, filters.estado]);
 
   const filteredRaces = useMemo(() => {
     if (!races) return [];
@@ -39,11 +52,21 @@ export default function Home() {
         ? race.distancia.toLowerCase().includes(filters.distancia.toLowerCase())
         : true;
       
-      return matchCidade && matchNome && matchData && matchDistancia;
+      const matchEstado = filters.estado
+        ? race.estado.toLowerCase().includes(filters.estado.toLowerCase())
+        : true;
+      
+      return matchCidade && matchNome && matchData && matchDistancia && matchEstado;
     });
   }, [races, filters]);
 
   const hasActiveFilters = Object.values(filters).some(v => v !== '');
+
+  // Função para lidar com seleção de estado
+  const handleStateSelect = (state: string | null) => {
+    setSelectedState(state);
+    setFilters(prev => ({ ...prev, estado: state || '' }));
+  };
 
   return (
     <main className="min-h-screen relative">
@@ -78,7 +101,7 @@ export default function Home() {
               Encontre as melhores corridas de rua do Brasil
             </p>
             <p className="text-lg text-white/70 max-w-2xl mx-auto drop-shadow-lg">
-              Filtre por cidade, nome, data ou distância e descubra seu próximo desafio!
+              Detectamos sua localização automaticamente e filtramos por estado, cidade, nome, data ou distância!
             </p>
 
             {/* Stats Badge */}
@@ -100,6 +123,16 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto max-w-7xl px-4 pb-20">
+        {/* State Tabs */}
+        {!isLoading && !error && races && races.length > 0 && (
+          <StateTabs 
+            races={races} 
+            selectedState={selectedState} 
+            onStateSelect={handleStateSelect}
+            userLocation={locationData}
+          />
+        )}
+
         {/* Search Bar com filtros separados */}
         <SearchBar filters={filters} onFilterChange={setFilters} />
 

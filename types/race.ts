@@ -4,6 +4,7 @@ export interface Race {
   nomeDaCorrida: string;
   distancia: string;
   link: string;
+  estado: string;
 }
 
 

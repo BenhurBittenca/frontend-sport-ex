@@ -5,6 +5,7 @@ export interface FilterValues {
   nome: string;
   data: string;
   distancia: string;
+  estado: string;
 }
 
 interface SearchBarProps {
@@ -18,7 +19,7 @@ export default function SearchBar({ filters, onFilterChange }: SearchBarProps) {
   };
 
   const clearAll = () => {
-    onFilterChange({ cidade: '', nome: '', data: '', distancia: '' });
+    onFilterChange({ cidade: '', nome: '', data: '', distancia: '', estado: '' });
   };
 
   const hasFilters = Object.values(filters).some(v => v !== '');
@@ -46,7 +47,7 @@ export default function SearchBar({ filters, onFilterChange }: SearchBarProps) {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Filtro: Cidade */}
           <div className="relative group">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -141,6 +142,32 @@ export default function SearchBar({ filters, onFilterChange }: SearchBarProps) {
               {filters.distancia && (
                 <button
                   onClick={() => handleChange('distancia', '')}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Filtro: Estado */}
+          <div className="relative group">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              🗺️ Estado
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={filters.estado}
+                onChange={(e) => handleChange('estado', e.target.value)}
+                placeholder="Ex: SP, RJ, MG"
+                className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
+              />
+              {filters.estado && (
+                <button
+                  onClick={() => handleChange('estado', '')}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
