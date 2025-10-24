@@ -59,7 +59,7 @@ export default function StateTabs({ races, selectedState, onStateSelect, userLoc
       <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-            <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -100,7 +100,7 @@ export default function StateTabs({ races, selectedState, onStateSelect, userLoc
             onClick={() => onStateSelect(null)}
             className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-3 ${
               selectedState === null
-                ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform scale-105'
+                ? 'bg-gradient-to-r from-orange-500 to-teal-600 text-white shadow-lg transform scale-105'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'
             }`}
           >
@@ -127,9 +127,9 @@ export default function StateTabs({ races, selectedState, onStateSelect, userLoc
                 onClick={() => onStateSelect(state)}
                 className={`relative px-4 py-3 rounded-xl font-semibold transition-all duration-300 flex flex-col items-center gap-2 ${
                   isSelected
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform scale-105'
+                    ? 'bg-gradient-to-r from-orange-500 to-teal-600 text-white shadow-lg transform scale-105'
                     : isUserState
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:shadow-lg hover:scale-105'
+                    ? 'bg-gradient-to-r from-teal-500 to-orange-500 text-white hover:shadow-lg hover:scale-105'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'
                 }`}
               >

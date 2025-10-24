@@ -77,41 +77,48 @@ export default function Home() {
       <header className="relative z-20 pt-16 pb-24 px-4">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center animate-fadeInDown">
-            {/* Logo/Ícone Principal */}
+            {/* Logo SportEx */}
             <div className="mb-6 flex justify-center">
               <div className="relative">
-                <div className="absolute inset-0 bg-blue-500 blur-3xl opacity-50 animate-pulse-glow"></div>
-                <div className="relative bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-6 rounded-3xl shadow-2xl">
-                  <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-teal-500 blur-3xl opacity-60 animate-pulse-glow"></div>
+                <div className="relative">
+                  <img 
+                    src="/images/sportex-logo.png" 
+                    alt="SportEx Logo" 
+                    className="w-48 h-32 object-contain drop-shadow-2xl"
+                  />
                 </div>
               </div>
             </div>
 
             {/* Título */}
             <h1 className="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-2xl">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-gradient bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-400 via-teal-400 to-orange-500 text-gradient bg-clip-text text-transparent">
                 SportEx
               </span>
             </h1>
             
             {/* Subtítulo */}
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-4 drop-shadow-lg font-medium">
-              Sua plataforma definitiva para corridas de rua
+            <p className="text-3xl md:text-4xl text-white font-black max-w-4xl mx-auto mb-6 drop-shadow-2xl">
+              <span className="bg-gradient-to-r from-orange-300 via-teal-300 to-orange-400 text-gradient bg-clip-text text-transparent">
+                Encontre sua próxima linha de chegada.
+              </span>
             </p>
-            <p className="text-lg text-white/70 max-w-2xl mx-auto drop-shadow-lg">
-              🏃‍♂️ Descubra corridas incríveis na sua região! Detectamos onde você está e mostramos os melhores eventos próximos a você. Filtre por distância, data, cidade e encontre sua próxima conquista!
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-4 drop-shadow-lg font-semibold">
+              Todas as provas, todas as modalidades, em um só lugar.
+            </p>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto drop-shadow-lg">
+              Descubra, planeje e viva o esporte com o SportEx
             </p>
 
             {/* Stats Badge */}
             <div className="mt-8 flex justify-center gap-4 flex-wrap">
-              <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-full px-6 py-3">
+              <div className="bg-gradient-to-r from-orange-500/20 to-teal-500/20 backdrop-blur-lg border border-orange-300/30 rounded-full px-6 py-3">
                 <span className="text-white/90 font-semibold">
                   ⚡ Atualizado em tempo real
                 </span>
               </div>
-              <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-full px-6 py-3">
+              <div className="bg-gradient-to-r from-teal-500/20 to-orange-500/20 backdrop-blur-lg border border-teal-300/30 rounded-full px-6 py-3">
                 <span className="text-white/90 font-semibold">
                   🏃 {races?.length || 0}+ corridas
                 </span>
@@ -186,7 +193,7 @@ export default function Home() {
               ) : (
                 <p className="text-lg">
                   <span className="text-gray-700">Mostrando </span>
-                  <span className="font-black text-3xl bg-gradient-to-r from-blue-600 to-purple-600 text-gradient bg-clip-text text-transparent">
+                  <span className="font-black text-3xl bg-gradient-to-r from-orange-600 to-teal-600 text-gradient bg-clip-text text-transparent">
                     {filteredRaces.length}
                   </span>
                   <span className="text-gray-700">
@@ -242,10 +249,12 @@ export default function Home() {
           <div className="text-center">
             {/* Logo */}
             <div className="mb-6 flex justify-center">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-4 rounded-2xl shadow-xl">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+              <div className="relative">
+                <img 
+                  src="/images/sportex-logo.png" 
+                  alt="SportEx Logo" 
+                  className="w-24 h-16 object-contain drop-shadow-xl"
+                />
               </div>
             </div>
 
