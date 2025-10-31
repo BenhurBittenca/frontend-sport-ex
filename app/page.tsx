@@ -5,9 +5,10 @@ import useSWR from 'swr';
 import RaceCard from '@/components/RaceCard';
 import SearchBar, { FilterValues } from '@/components/SearchBar';
 import StateTabs from '@/components/StateTabs';
+import ModalidadeTabs from '@/components/ModalidadeTabs';
 import BackgroundSlider from '@/components/BackgroundSlider';
 import { useLocation } from '@/hooks/useLocation';
-import { Race } from '@/types/race';
+import { Race, Modalidade } from '@/types/race';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -21,7 +22,13 @@ export default function Home() {
   });
   
   const [selectedState, setSelectedState] = useState<string | null>(null);
-  const { data: races, error, isLoading } = useSWR<Race[]>('/api/races', fetcher);
+  const [selectedModalidade, setSelectedModalidade] = useState<Modalidade>('corrida');
+  
+  // Buscar dados da API com modalidade selecionada
+  const { data: races, error, isLoading } = useSWR<Race[]>(
+    `/api/races?modalidade=${selectedModalidade}`,
+    fetcher
+  );
   const locationData = useLocation();
 
   // Auto-selecionar estado do usuário quando disponível
@@ -120,7 +127,7 @@ export default function Home() {
               </div>
               <div className="bg-gradient-to-r from-teal-500/20 to-orange-500/20 backdrop-blur-lg border border-teal-300/30 rounded-full px-6 py-3">
                 <span className="text-white/90 font-semibold">
-                  🏃 {races?.length || 0}+ corridas
+                  🏆 {races?.length || 0}+ eventos
                 </span>
               </div>
             </div>
@@ -130,6 +137,12 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto max-w-7xl px-4 pb-20">
+        {/* Modalidade Tabs - Seletor de Modalidades */}
+        <ModalidadeTabs 
+          selectedModalidade={selectedModalidade}
+          onModalidadeSelect={setSelectedModalidade}
+        />
+
         {/* State Tabs */}
         {!isLoading && !error && races && races.length > 0 && (
           <StateTabs 
@@ -153,7 +166,7 @@ export default function Home() {
               </div>
             </div>
             <p className="mt-6 text-white text-lg font-semibold drop-shadow-lg">
-              Carregando corridas incríveis...
+              Carregando eventos incríveis...
             </p>
           </div>
         )}
@@ -174,7 +187,7 @@ export default function Home() {
                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <p className="text-white font-bold text-xl mb-2">Erro ao carregar corridas</p>
+            <p className="text-white font-bold text-xl mb-2">Erro ao carregar eventos</p>
             <p className="text-white/90">
               Não foi possível carregar os dados. Tente novamente mais tarde.
             </p>
@@ -187,7 +200,7 @@ export default function Home() {
             <div className="inline-block bg-white/80 backdrop-blur-xl rounded-2xl px-8 py-4 shadow-xl border border-white/30">
               {filteredRaces.length === 0 && hasActiveFilters ? (
                 <p className="text-lg">
-                  <span className="font-bold text-red-600">Nenhuma corrida encontrada</span>
+                  <span className="font-bold text-red-600">Nenhum evento encontrado</span>
                   <span className="text-gray-700"> com os filtros aplicados</span>
                 </p>
               ) : (
@@ -197,7 +210,7 @@ export default function Home() {
                     {filteredRaces.length}
                   </span>
                   <span className="text-gray-700">
-                    {' '}{filteredRaces.length === 1 ? 'corrida' : 'corridas'}
+                    {' '}{filteredRaces.length === 1 ? 'evento' : 'eventos'}
                   </span>
                   {hasActiveFilters && (
                     <span className="text-gray-600 text-sm ml-2">
@@ -222,22 +235,51 @@ export default function Home() {
         {/* Empty State */}
         {!isLoading && !error && races && races.length === 0 && (
           <div className="text-center py-20 animate-fadeInUp">
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-12 max-w-md mx-auto shadow-2xl border border-white/30">
-              <svg
-                className="w-20 h-20 text-gray-400 mx-auto mb-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                />
-              </svg>
-              <p className="text-gray-800 text-xl font-bold">Nenhuma corrida cadastrada</p>
-              <p className="text-gray-600 mt-2">Volte em breve para novidades!</p>
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-12 max-w-lg mx-auto shadow-2xl border border-white/30">
+              {selectedModalidade === 'corrida' ? (
+                // Mensagem para corrida sem eventos
+                <>
+                  <svg
+                    className="w-20 h-20 text-gray-400 mx-auto mb-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                    />
+                  </svg>
+                  <p className="text-gray-800 text-xl font-bold">Nenhum evento cadastrado</p>
+                  <p className="text-gray-600 mt-2">Volte em breve para novidades!</p>
+                </>
+              ) : (
+                // Mensagem para modalidades ainda não configuradas
+                <>
+                  <div className="text-6xl mb-6">
+                    {selectedModalidade === 'ciclismo' ? '🚴' : '🏊'}
+                  </div>
+                  <p className="text-gray-800 text-2xl font-bold mb-3">
+                    {selectedModalidade === 'ciclismo' ? 'Ciclismo' : 'Triatlo'} em Breve!
+                  </p>
+                  <p className="text-gray-600 mb-4">
+                    Estamos preparando eventos incríveis de {selectedModalidade === 'ciclismo' ? 'ciclismo' : 'triatlo'} para você.
+                  </p>
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left">
+                    <p className="text-sm text-gray-700 font-medium mb-2">
+                      💡 <strong>Para administradores:</strong>
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      1. Crie a aba <code className="bg-gray-200 px-2 py-1 rounded">eventos_{selectedModalidade}</code> na planilha<br />
+                      2. Obtenha o GID da aba<br />
+                      3. Configure <code className="bg-gray-200 px-2 py-1 rounded">{selectedModalidade.toUpperCase()}_GID</code> no .env.local<br />
+                      4. Reinicie o servidor
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -276,7 +318,7 @@ export default function Home() {
               © {new Date().getFullYear()} SportEx. Todos os direitos reservados.
             </p>
             <p className="text-white/50 text-sm">
-              Desenvolvido com ❤️ para corredores apaixonados
+              Desenvolvido com ❤️ para atletas apaixonados
             </p>
           </div>
         </div>
