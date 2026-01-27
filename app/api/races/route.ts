@@ -6,7 +6,7 @@ import { Race, Modalidade } from '@/types/race';
 const SHEET_GIDS: Record<Modalidade, string> = {
   corrida: process.env.CORRIDA_GID || '672877934',
   ciclismo: process.env.CICLISMO_GID || '',
-  triatlo: process.env.TRIATLO_GID || '',
+  triathlon: process.env.TRIATHLON_GID || '',
 };
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '13_EmYHqmjJd9tvp6iihAaKKgRxnOi9gwSIwavgfCn0Y';
@@ -59,9 +59,9 @@ export async function GET(request: NextRequest) {
     const modalidade = (searchParams.get('modalidade') || 'corrida') as Modalidade;
 
     // Validar modalidade
-    if (!['corrida', 'ciclismo', 'triatlo'].includes(modalidade)) {
+    if (!['corrida', 'ciclismo', 'triathlon'].includes(modalidade)) {
       return NextResponse.json(
-        { error: 'Modalidade inválida. Use: corrida, ciclismo ou triatlo' },
+        { error: 'Modalidade inválida. Use: corrida, ciclismo ou triathlon' },
         { status: 400 }
       );
     }
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     // Se não tem GID configurado, retorna array vazio ao invés de erro
     if (!gid) {
       console.warn(`GID não configurado para modalidade: ${modalidade}`);
-      return NextResponse.json([]);
+      return NextResponse.json({ races: [], totalLinhas: 0 });
     }
 
     const sheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${gid}`;
@@ -91,6 +91,10 @@ export async function GET(request: NextRequest) {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
+          // Contar total de linhas da planilha (sem cabeçalho)
+          // O Papa.parse com header: true já remove o cabeçalho, então results.data.length é o total
+          const totalLinhas = results.data.length;
+
           const races: Race[] = results.data
             .map((row: any) => ({
               data: row['DATA'] || row['data'] || '',
@@ -101,13 +105,11 @@ export async function GET(request: NextRequest) {
               estado: row['SIGLA'] || row['sigla'] || row['ESTADO'] || row['estado'] || '',
               modalidade: modalidade,
             }))
-            // Filtrar linhas vazias ou inválidas
-            .filter((race) => race.nomeDaCorrida && race.cidade)
-            // Filtrar apenas eventos futuros (data >= hoje)
-            .filter((race) => isFutureEvent(race.data));
+            // Filtrar linhas vazias ou inválidas (cabeçalho já é removido pelo Papa.parse com header: true)
+            .filter((race) => race.nomeDaCorrida && race.cidade);
 
-          console.log(`Retornando ${races.length} eventos futuros para modalidade: ${modalidade}`);
-          resolve(NextResponse.json(races));
+          console.log(`Total de linhas na planilha: ${totalLinhas}, Retornando ${races.length} eventos válidos para modalidade: ${modalidade}`);
+          resolve(NextResponse.json({ races, totalLinhas }));
         },
         error: (error: Error) => {
           console.error('CSV parsing error:', error);

@@ -25,10 +25,13 @@ export default function Home() {
   const [selectedModalidade, setSelectedModalidade] = useState<Modalidade>('corrida');
   
   // Buscar dados da API com modalidade selecionada
-  const { data: races, error, isLoading } = useSWR<Race[]>(
+  const { data: apiData, error, isLoading } = useSWR<{ races: Race[]; totalLinhas: number }>(
     `/api/races?modalidade=${selectedModalidade}`,
     fetcher
   );
+  
+  const races = apiData?.races || [];
+  const totalLinhas = apiData?.totalLinhas || 0;
   const locationData = useLocation();
 
   // Auto-selecionar estado do usuário quando disponível
@@ -127,7 +130,7 @@ export default function Home() {
               </div>
               <div className="bg-gradient-to-r from-teal-500/20 to-orange-500/20 backdrop-blur-lg border border-teal-300/30 rounded-full px-6 py-3">
                 <span className="text-white/90 font-semibold">
-                  🏆 {races?.length || 0}+ eventos
+                  🏆 {totalLinhas} eventos
                 </span>
               </div>
             </div>
@@ -262,10 +265,10 @@ export default function Home() {
                     {selectedModalidade === 'ciclismo' ? '🚴' : '🏊'}
                   </div>
                   <p className="text-gray-800 text-2xl font-bold mb-3">
-                    {selectedModalidade === 'ciclismo' ? 'Ciclismo' : 'Triatlo'} em Breve!
+                    {selectedModalidade === 'ciclismo' ? 'Ciclismo' : 'Triathlon'} em Breve!
                   </p>
                   <p className="text-gray-600 mb-4">
-                    Estamos preparando eventos incríveis de {selectedModalidade === 'ciclismo' ? 'ciclismo' : 'triatlo'} para você.
+                    Estamos preparando eventos incríveis de {selectedModalidade === 'ciclismo' ? 'ciclismo' : 'triathlon'} para você.
                   </p>
                   <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left">
                     <p className="text-sm text-gray-700 font-medium mb-2">

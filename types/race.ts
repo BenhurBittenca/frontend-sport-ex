@@ -1,4 +1,4 @@
-export type Modalidade = 'corrida' | 'ciclismo' | 'triatlo';
+export type Modalidade = 'corrida' | 'ciclismo' | 'triathlon';
 
 export interface Event {
   data: string;

@@ -25,11 +25,11 @@ const MODALIDADES_CONFIG: Record<Modalidade, {
     color: 'from-teal-500 to-cyan-600',
     description: 'Provas de ciclismo de estrada e MTB'
   },
-  triatlo: {
-    label: 'Triatlo',
+  triathlon: {
+    label: 'Triathlon',
     emoji: '🏊',
     color: 'from-purple-500 to-pink-600',
-    description: 'Provas de triatlo e aquathlon'
+    description: 'Provas de triathlon e aquathlon'
   }
 };
 
