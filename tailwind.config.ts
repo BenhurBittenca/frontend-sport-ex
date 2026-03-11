@@ -13,6 +13,15 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        sportex: {
+          bg: '#1A1208',
+          section: '#251A0E',
+          card: '#2A1F12',
+          orange: '#E85200',
+          muted: '#B8A99A',
+        },
+      },
     },
   },
   plugins: [],

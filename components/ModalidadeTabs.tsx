@@ -9,133 +9,107 @@ interface ModalidadeTabsProps {
 
 const MODALIDADES_CONFIG: Record<Modalidade, {
   label: string;
-  emoji: string;
-  color: string;
   description: string;
+  icon: React.ReactNode;
 }> = {
   corrida: {
     label: 'Corrida',
-    emoji: '🏃',
-    color: 'from-orange-500 to-amber-600',
-    description: 'Provas de corrida de rua, trail e pista'
+    description: 'Provas de corrida de rua, trail e pista',
+    icon: (
+      // Ícone ECG/heartbeat line (como no Figma)
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <polyline points="2,12 6,12 8,4 10,20 13,10 15,14 17,12 22,12" />
+      </svg>
+    ),
   },
   ciclismo: {
     label: 'Ciclismo',
-    emoji: '🚴',
-    color: 'from-teal-500 to-cyan-600',
-    description: 'Provas de ciclismo de estrada e MTB'
+    description: 'Provas de ciclismo de estrada e MTB',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <circle cx="5.5" cy="16.5" r="3.5" />
+        <circle cx="18.5" cy="16.5" r="3.5" />
+        <path d="M15 7h-2l-3 9.5" />
+        <path d="M9.5 9H12l3 7.5H9.5" />
+        <circle cx="15" cy="6" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    ),
   },
-  triathlon: {
+  triatlo: {
     label: 'Triathlon',
-    emoji: '🏊',
-    color: 'from-purple-500 to-pink-600',
-    description: 'Provas de triathlon e aquathlon'
-  }
+    description: 'Provas de triatlo e aquathlon',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <path d="M2 10c2-3 4-3 6 0s4 3 6 0 4-3 6 0" />
+        <path d="M2 15c2-3 4-3 6 0s4 3 6 0 4-3 6 0" />
+      </svg>
+    ),
+  },
 };
 
 export default function ModalidadeTabs({ selectedModalidade, onModalidadeSelect }: ModalidadeTabsProps) {
   return (
     <div className="w-full max-w-6xl mx-auto mb-8 animate-fadeInDown">
-      <div className="bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
-        {/* Título */}
-        <div className="mb-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-3">
-            <svg className="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Escolha sua Modalidade
-          </h2>
-          <p className="text-gray-600 text-sm">
-            Selecione o tipo de evento que você procura
-          </p>
-        </div>
+      {/* Título fora do container */}
+      <div className="mb-4 text-center">
+        <h2 className="text-xl font-bold text-white mb-1">
+          Escolha sua Modalidade
+        </h2>
+        <p className="text-sportex-muted text-sm">
+          Selecione o tipo de evento que você procura
+        </p>
+      </div>
 
-        {/* Abas de Modalidades */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {(Object.keys(MODALIDADES_CONFIG) as Modalidade[]).map((modalidade) => {
+      {/* Cards de Modalidades — soltos, sem container */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {(Object.keys(MODALIDADES_CONFIG) as Modalidade[]).map((modalidade) => {
             const config = MODALIDADES_CONFIG[modalidade];
             const isSelected = selectedModalidade === modalidade;
-            
+
             return (
               <button
                 key={modalidade}
                 onClick={() => onModalidadeSelect(modalidade)}
-                className={`relative group p-6 rounded-xl transition-all duration-300 transform ${
+                className={`relative group p-6 rounded-xl transition-all duration-300 text-left border ${
                   isSelected
-                    ? `bg-gradient-to-br ${config.color} text-white shadow-2xl scale-105`
-                    : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 hover:shadow-lg hover:scale-105 hover:from-gray-100 hover:to-gray-50'
+                    ? 'bg-sportex-orange border-sportex-orange shadow-lg shadow-sportex-orange/30'
+                    : 'bg-black/20 border-white/15 hover:border-white/35 hover:bg-black/30'
                 }`}
               >
-                {/* Efeito de brilho quando selecionado */}
-                {isSelected && (
-                  <div className="absolute inset-0 bg-white/20 rounded-xl blur-xl animate-pulse-glow"></div>
-                )}
-                
-                <div className="relative">
-                  {/* Emoji grande */}
-                  <div className={`text-6xl mb-3 transform transition-transform duration-300 ${
-                    isSelected ? 'scale-110' : 'group-hover:scale-110'
-                  }`}>
-                    {config.emoji}
-                  </div>
-                  
-                  {/* Nome da modalidade */}
-                  <h3 className={`text-2xl font-black mb-2 ${
-                    isSelected ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    {config.label}
-                  </h3>
-                  
-                  {/* Descrição */}
-                  <p className={`text-sm font-medium ${
-                    isSelected ? 'text-white/90' : 'text-gray-600'
-                  }`}>
-                    {config.description}
-                  </p>
-
-                  {/* Indicador de seleção */}
-                  {isSelected && (
-                    <div className="mt-4 flex items-center justify-center gap-2">
-                      <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                      <span className="text-xs font-bold text-white uppercase tracking-wider">
-                        Selecionado
-                      </span>
-                      <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    </div>
-                  )}
+                {/* Ícone */}
+                <div className={`mb-4 transition-transform duration-300 ${
+                  isSelected ? 'text-white' : 'text-sportex-muted group-hover:text-white'
+                }`}>
+                  {config.icon}
                 </div>
 
-                {/* Borda animada quando hover */}
-                {!isSelected && (
-                  <div className={`absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-gradient bg-gradient-to-br ${config.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                {/* Nome */}
+                <h3 className={`text-lg font-bold mb-1 ${
+                  isSelected ? 'text-white' : 'text-white/80 group-hover:text-white'
+                }`}>
+                  {config.label}
+                </h3>
+
+                {/* Descrição */}
+                <p className={`text-xs ${
+                  isSelected ? 'text-white/80' : 'text-sportex-muted'
+                }`}>
+                  {config.description}
+                </p>
+
+                {/* Badge SELECIONADO */}
+                {isSelected && (
+                  <div className="mt-4">
+                    <span className="inline-flex items-center gap-1.5 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                      <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+                      Selecionado
+                    </span>
+                  </div>
                 )}
               </button>
             );
-          })}
-        </div>
-
-        {/* Informação da modalidade selecionada */}
-        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-xl border border-blue-200">
-          <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 bg-gradient-to-br ${MODALIDADES_CONFIG[selectedModalidade].color} rounded-full flex items-center justify-center text-2xl shadow-lg`}>
-              {MODALIDADES_CONFIG[selectedModalidade].emoji}
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-gray-800 text-lg">
-                {MODALIDADES_CONFIG[selectedModalidade].label}
-              </h3>
-              <p className="text-sm text-gray-600">
-                Visualizando eventos de {MODALIDADES_CONFIG[selectedModalidade].label.toLowerCase()}
-              </p>
-            </div>
-            <div className="hidden md:flex items-center gap-2 bg-white/60 px-4 py-2 rounded-full">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-xs font-semibold text-gray-700">Ativo</span>
-            </div>
-          </div>
-        </div>
+        })}
       </div>
     </div>
   );
 }
-

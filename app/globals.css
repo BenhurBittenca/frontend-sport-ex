@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 30, 41, 59;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 26, 18, 8;
+  --background-end-rgb: 26, 18, 8;
 }
 
 body {
@@ -13,6 +13,8 @@ body {
   background: rgb(var(--background-start-rgb));
   min-height: 100vh;
   overflow-x: hidden;
+  /* Cor de fallback enquanto as imagens de fundo carregam */
+  background-color: #1A1208;
 }
 
 /* Animações personalizadas */
@@ -158,23 +160,38 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Scrollbar personalizado */
+/* Scrollbar personalizado — geral */
 ::-webkit-scrollbar {
   width: 12px;
 }
 
+/* Scrollbar fino para dropdowns */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(232, 82, 0, 0.4);
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 82, 0, 0.7);
+}
+
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(26, 18, 8, 0.8);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(180deg, #E85200, #b84000);
   border-radius: 6px;
-  border: 2px solid rgba(15, 23, 42, 0.5);
+  border: 2px solid rgba(26, 18, 8, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #2563eb, #7c3aed);
+  background: linear-gradient(180deg, #ff6520, #E85200);
 }
 
 /* Transições suaves para duração customizada */

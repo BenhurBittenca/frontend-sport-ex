@@ -2,40 +2,56 @@ import { NextRequest, NextResponse } from 'next/server';
 import Papa from 'papaparse';
 import { Race, Modalidade } from '@/types/race';
 
-// Mapeamento de GIDs para cada modalidade
-const SHEET_GIDS: Record<Modalidade, string> = {
-  corrida: process.env.CORRIDA_GID || '672877934',
-  ciclismo: process.env.CICLISMO_GID || '',
-  triathlon: process.env.TRIATHLON_GID || '',
+// Nome das abas na planilha para cada modalidade
+const SHEET_NAMES: Record<Modalidade, string> = {
+  corrida:  process.env.CORRIDA_SHEET  || 'eventos_corrida',
+  ciclismo: process.env.CICLISMO_SHEET || 'eventos_ciclismo',
+  triatlo:  process.env.TRIATLO_SHEET  || 'eventos_triathlon',
 };
 
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '13_EmYHqmjJd9tvp6iihAaKKgRxnOi9gwSIwavgfCn0Y';
 
 /**
- * Parseia data no formato DD/MM/YYYY
+ * Parseia data nos formatos DD/MM/YYYY, DD.MM.YYYY ou DD.MM (sem ano)
  * Retorna null se a data for inválida
  */
 function parseEventDate(dateStr: string): Date | null {
   if (!dateStr) return null;
 
-  // Aceita "/" como separador: DD/MM/YYYY
-  const parts = dateStr.split('/');
-  
-  if (parts.length !== 3) return null;
+  // Normaliza separador: aceita "/" e "."
+  const normalized = dateStr.trim().replace(/\./g, '/');
+  const parts = normalized.split('/');
 
-  const day = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10) - 1; // Mês é 0-indexed no JS
-  const year = parseInt(parts[2], 10);
+  let day: number, month: number, year: number;
+
+  if (parts.length === 3) {
+    // DD/MM/YYYY
+    day   = parseInt(parts[0], 10);
+    month = parseInt(parts[1], 10) - 1;
+    year  = parseInt(parts[2], 10);
+  } else if (parts.length === 2) {
+    // DD/MM sem ano — assume ano corrente ou próximo
+    day   = parseInt(parts[0], 10);
+    month = parseInt(parts[1], 10) - 1;
+    const now = new Date();
+    year = now.getFullYear();
+    // Se o mês/dia já passou, provavelmente é do próximo ano
+    if (month < now.getMonth() || (month === now.getMonth() && day < now.getDate())) {
+      year += 1;
+    }
+  } else {
+    return null;
+  }
 
   if (isNaN(day) || isNaN(month) || isNaN(year)) return null;
-  
+
   const date = new Date(year, month, day);
-  
+
   // Validar se a data é válida
   if (date.getDate() !== day || date.getMonth() !== month || date.getFullYear() !== year) {
     return null;
   }
-  
+
   return date;
 }
 
@@ -59,22 +75,17 @@ export async function GET(request: NextRequest) {
     const modalidade = (searchParams.get('modalidade') || 'corrida') as Modalidade;
 
     // Validar modalidade
-    if (!['corrida', 'ciclismo', 'triathlon'].includes(modalidade)) {
+    if (!['corrida', 'ciclismo', 'triatlo'].includes(modalidade)) {
       return NextResponse.json(
-        { error: 'Modalidade inválida. Use: corrida, ciclismo ou triathlon' },
+        { error: 'Modalidade inválida. Use: corrida, ciclismo ou triatlo' },
         { status: 400 }
       );
     }
 
-    const gid = SHEET_GIDS[modalidade];
-    
-    // Se não tem GID configurado, retorna array vazio ao invés de erro
-    if (!gid) {
-      console.warn(`GID não configurado para modalidade: ${modalidade}`);
-      return NextResponse.json({ races: [], totalLinhas: 0 });
-    }
+    const sheetName = SHEET_NAMES[modalidade];
 
-    const sheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${gid}`;
+    // URL por nome da aba — não requer GID
+    const sheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
     
     const response = await fetch(sheetUrl, {
       cache: 'no-store',
@@ -91,10 +102,6 @@ export async function GET(request: NextRequest) {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
-          // Contar total de linhas da planilha (sem cabeçalho)
-          // O Papa.parse com header: true já remove o cabeçalho, então results.data.length é o total
-          const totalLinhas = results.data.length;
-
           const races: Race[] = results.data
             .map((row: any) => ({
               data: row['DATA'] || row['data'] || '',
@@ -105,11 +112,13 @@ export async function GET(request: NextRequest) {
               estado: row['SIGLA'] || row['sigla'] || row['ESTADO'] || row['estado'] || '',
               modalidade: modalidade,
             }))
-            // Filtrar linhas vazias ou inválidas (cabeçalho já é removido pelo Papa.parse com header: true)
-            .filter((race) => race.nomeDaCorrida && race.cidade);
+            // Filtrar linhas vazias ou inválidas
+            .filter((race) => race.nomeDaCorrida && race.cidade)
+            // Filtrar apenas eventos futuros (data >= hoje)
+            .filter((race) => isFutureEvent(race.data));
 
-          console.log(`Total de linhas na planilha: ${totalLinhas}, Retornando ${races.length} eventos válidos para modalidade: ${modalidade}`);
-          resolve(NextResponse.json({ races, totalLinhas }));
+          console.log(`Retornando ${races.length} eventos futuros para modalidade: ${modalidade} (aba: ${sheetName})`);
+          resolve(NextResponse.json(races));
         },
         error: (error: Error) => {
           console.error('CSV parsing error:', error);

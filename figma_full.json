@@ -1,0 +1,68 @@
+﻿{
+    "document":  {
+                     "id":  "0:0",
+                     "name":  "Document",
+                     "type":  "DOCUMENT",
+                     "scrollBehavior":  "SCROLLS",
+                     "children":  [
+                                      {
+                                          "id":  "0:1",
+                                          "name":  "WEB",
+                                          "type":  "CANVAS",
+                                          "scrollBehavior":  "SCROLLS",
+                                          "children":  [
+                                                           "@{id=4:1678; name=Frame 1; type=FRAME; scrollBehavior=SCROLLS; children=System.Object[]; blendMode=PASS_THROUGH; clipsContent=True; background=System.Object[]; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; backgroundColor=; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2128; name=Frame 2; type=FRAME; scrollBehavior=SCROLLS; children=System.Object[]; blendMode=PASS_THROUGH; clipsContent=True; background=System.Object[]; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; devStatus=; backgroundColor=; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2939; name=image 4; type=RECTANGLE; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; preserveRatio=True; targetAspectRatio=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2941; name=Ao clicar em todas as corridas ele filtra apenas todas as corridas de SC, acredito que deveria filtrar TODAS as corridas.; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=Ao clicar em todas as corridas ele filtra apenas todas as corridas de SC, acredito que deveria filtrar TODAS as corridas.; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2963; name=Estas opções não estão funcionando.; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=Estas opções não estão funcionando.; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2970; name=Eu retiraria esta informação, já está bem claro que a opção corrida está selecionada.; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=Eu retiraria esta informação, já está bem claro que a opção corrida está selecionada.; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2947; name=Eu removeria essa informação, pois ela está duplicada — o estado selecionado e a quantidade de eventos já aparecem na parte superior. Além disso, ao clicar em “fechar”, nada acontece, indicando um erro no componente. Nesse caso, é mais simples e coerente remover o componente por completo.; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=Eu removeria essa informação, pois ela está duplicada — o estado selecionado e a quantidade de eventos já aparecem na parte superior.\n\nAlém disso, ao clicar em “fechar”, nada acontece, indicando um erro no componente. Nesse caso, é mais simples e coerente remover o componente por completo.; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2954; name=Clicando aqui seria bacana se abrisse um calendário pequeno.; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=Clicando aqui seria bacana se abrisse um calendário pequeno.; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2958; name=Poderia ter um combo box, com as opções; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=Poderia ter um combo box, com as opções ; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2943; name=image 5; type=RECTANGLE; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; preserveRatio=True; targetAspectRatio=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2945; name=Arrow 1; type=VECTOR; scrollBehavior=SCROLLS; rotation=-1.5707963705063026; blendMode=PASS_THROUGH; fills=System.Object[]; fillOverrideTable=; strokes=System.Object[]; strokeWeight=2.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2946; name=Arrow 2; type=VECTOR; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; fillOverrideTable=; strokes=System.Object[]; strokeWeight=2.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2950; name=image 6; type=RECTANGLE; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; preserveRatio=True; targetAspectRatio=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2952; name=Arrow 3; type=VECTOR; scrollBehavior=SCROLLS; rotation=1.5707963840953152; blendMode=PASS_THROUGH; fills=System.Object[]; fillOverrideTable=; strokes=System.Object[]; strokeWeight=2.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2956; name=Arrow 4; type=VECTOR; scrollBehavior=SCROLLS; rotation=1.5707963840953152; blendMode=PASS_THROUGH; fills=System.Object[]; fillOverrideTable=; strokes=System.Object[]; strokeWeight=2.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2961; name=image 7; type=RECTANGLE; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; preserveRatio=True; targetAspectRatio=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2966; name=image 8; type=RECTANGLE; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; preserveRatio=True; targetAspectRatio=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2968; name=Arrow 5; type=VECTOR; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; fillOverrideTable=; strokes=System.Object[]; strokeWeight=2.0; strokeAlign=INSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}",
+                                                           "@{id=6:2972; name=AJUSTES; type=TEXT; scrollBehavior=SCROLLS; blendMode=PASS_THROUGH; fills=System.Object[]; strokes=System.Object[]; strokeWeight=1.0; strokeAlign=OUTSIDE; absoluteBoundingBox=; absoluteRenderBounds=; constraints=; characters=AJUSTES; characterStyleOverrides=System.Object[]; styleOverrideTable=; lineTypes=System.Object[]; lineIndentations=System.Object[]; style=; layoutVersion=5; effects=System.Object[]; interactions=System.Object[]; complexStrokeProperties=}"
+                                                       ],
+                                          "backgroundColor":  {
+                                                                  "r":  0.96078431606292725,
+                                                                  "g":  0.96078431606292725,
+                                                                  "b":  0.96078431606292725,
+                                                                  "a":  1.0
+                                                              },
+                                          "prototypeStartNodeID":  null,
+                                          "flowStartingPoints":  [
+
+                                                                 ],
+                                          "prototypeDevice":  {
+                                                                  "type":  "NONE",
+                                                                  "rotation":  "NONE"
+                                                              }
+                                      }
+                                  ]
+                 },
+    "components":  {
+
+                   },
+    "componentSets":  {
+
+                      },
+    "schemaVersion":  0,
+    "styles":  {
+
+               },
+    "name":  "SportEx",
+    "lastModified":  "2026-03-11T20:20:25Z",
+    "thumbnailUrl":  "https://s3-alpha.figma.com/thumbnails/d78f17c3-ad38-4d54-92af-236f54cc2251?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIAQ4GOSFWCVLWKB6UZ%2F20260308%2Fus-west-2%2Fs3%2Faws4_request\u0026X-Amz-Date=20260308T120000Z\u0026X-Amz-Expires=604800\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=16f734610b98bc8e6da369044d2ca96464b06b877cd5fccaf9923ac856b8f136",
+    "version":  "2329792601559315834",
+    "role":  "viewer",
+    "editorType":  "figma",
+    "linkAccess":  "view"
+}

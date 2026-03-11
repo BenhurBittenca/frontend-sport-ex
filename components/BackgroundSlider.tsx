@@ -24,8 +24,8 @@ export default function BackgroundSlider() {
 
   return (
     <div className="fixed inset-0 w-full h-full -z-10 overflow-hidden">
-      {/* Overlay escuro para melhorar legibilidade */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 z-10" />
+      {/* Overlay escuro para melhorar legibilidade em toda a página */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/65 to-black/80 z-10" />
       
       {/* Imagens de fundo com transição */}
       {images.map((image, index) => (
@@ -43,14 +43,6 @@ export default function BackgroundSlider() {
         />
       ))}
 
-      {/* Partículas decorativas animadas */}
-      <div className="absolute inset-0 z-10">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-blue-400/30 rounded-full animate-float" />
-        <div className="absolute top-40 right-20 w-3 h-3 bg-blue-300/20 rounded-full animate-float-delayed" />
-        <div className="absolute bottom-40 left-1/4 w-2 h-2 bg-blue-500/25 rounded-full animate-float" />
-        <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-400/30 rounded-full animate-float-delayed" />
-        <div className="absolute bottom-20 right-10 w-3 h-3 bg-blue-300/20 rounded-full animate-float" />
-      </div>
     </div>
   );
 }
